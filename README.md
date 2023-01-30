@@ -1,10 +1,10 @@
 # repo_crawler
 
 ## Dependency
-typescript : ^4.9.4
-csv : ^6.2.5
-octokit : ^2.0.14
-sqlite3 : ^5.1.4
+typescript : ^4.9.4</br>
+csv : ^6.2.5</br>
+octokit : ^2.0.14</br>
+sqlite3 : ^5.1.4</br>
 
-
+## To Run </br>
 `yarn ts-node index.ts`
