@@ -1,5 +1,27 @@
 {
   "dependencies": {
-    "octokit": "^2.0.14"
-  }
+    "csv": "^6.2.5",
+    "octokit": "^2.0.14",
+    "sqlite3": "^5.1.4"
+  },
+  "name": "issue_miner",
+  "version": "1.0.0",
+  "main": "index.js",
+  "devDependencies": {
+    "@types/node": "^18.11.18",
+    "ts-node": "^10.9.1",
+    "typescript": "^4.9.4"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": "git+https://github.com/zackcglee/git_issue_miner.git",
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/zackcglee/git_issue_miner/issues"
+  },
+  "homepage": "https://github.com/zackcglee/git_issue_miner#readme",
+  "description": ""
 }
