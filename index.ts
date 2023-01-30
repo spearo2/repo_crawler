@@ -3,12 +3,13 @@ import * as fs from "fs";
 import { writeFileSync, readFileSync } from 'fs';
 import { parse } from 'csv-parse';
 import { join } from 'path';
+import { stringify } from "querystring";
 
 const octokit = new Octokit({
     auth: process.env.GITHUB_TOKEN
 });
 
-var result: string = '';
+
 module Environment {
     export class Sub {
         owner: string | undefined;
@@ -19,6 +20,7 @@ module Environment {
         body: string | undefined;
     }
 }
+var result: string = '';
 
 fs.createReadStream("./assets/repositories.csv")
   .pipe(parse({ delimiter: ",", from_line: 2 }))
@@ -32,19 +34,25 @@ fs.createReadStream("./assets/repositories.csv")
             for (var issue of issues.data) {
                 var found = false;
                 // console.log(issue);
+                if (issue.title == null)
+                    continue;
                 for (var word of issue.title.split(" ")) {
                     if (word.toLowerCase().includes("overflow")) {
                         console.log(owner + "," + repo + "," + issue.id + "," + issue.url + "," + issue.title + "," + issue.body + "\n");
-                        result += owner + "," + repo + "," + issue.id + "," + issue.url + "," + issue.title + "," + issue.body + "\n";
+                        let x = owner + "," + repo + "," + issue.id + "," + issue.url + "," + issue.title + "," + issue.body + "\n";
+                        result += x as string;
                         found = true;
                         break;
                     }
                 }
+                if (issue.body == null)
+                    continue;
                 if (!found) {
                     for (var word of issue.body.split(" ")) {
                         if (word.toLowerCase().includes("overflow")) {
                             console.log(owner + "," + repo + "," + issue.id + "," + issue.url + "," + issue.title + "," + issue.body + "\n");
-                            result += owner + "," + repo + "," + issue.id + "," + issue.url + "," + issue.title + "," + issue.body + "\n";
+                            let x = owner + "," + repo + "," + issue.id + "," + issue.url + "," + issue.title + "," + issue.body + "\n";
+                            result += x as string;
                             break;
                         }
                     }
@@ -57,12 +65,13 @@ fs.createReadStream("./assets/repositories.csv")
             //     }
 
                     
-                })
+            }
+            )
         // });
 
         
      
-        syncWriteFile('./result.csv', result);
+        
         
         // getCommits(owner, repo).then((commits) => {
         //     console.log(commits);
@@ -74,9 +83,11 @@ fs.createReadStream("./assets/repositories.csv")
         //             }
         //         })
         //     });
-
-        });
-    
+        }
+        
+        );
+        console.log(result)
+        fs.writeFileSync('./foo.txt', result);
     
     
   
@@ -97,21 +108,7 @@ function getIssues(owner:string, repo:string) {
     
 }
 
-function syncWriteFile(filename: string, data: any) {
-    /**
-     * flags:
-     *  - w = Open file for reading and writing. File is created if not exists
-     *  - a+ = Open file for reading and appending. The file is created if not exists
-     */
-    writeFileSync(join(__dirname, filename), data, {
-      flag: 'w',
-    });
-  
-    const contents = readFileSync(join(__dirname, filename), 'utf-8');
-    console.log(contents); // 👉️ "One Two Three Four"
-  
-    return contents;
-  }
+
 
 // try {
 //     const { data } = await octokit.request("GET /repos/{owner}/{repo}/issues", {
