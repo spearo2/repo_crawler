@@ -10,4 +10,4 @@ sqlite3 : ^5.1.4</br>
 `yarn ts-node index.ts <option> <keyword>`
 
 Option `-i` for issue mining</br>
-Option '-c' for commit mining</br>
+Option `-c` for commit message mining</br>
