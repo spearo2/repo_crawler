@@ -36,7 +36,7 @@ function option_i() {
                     if (issue.title == null)
                         continue;
                     for (var word of issue.title.split(" ")) {
-                        if (word.toLowerCase().includes("overflow")) {
+                        if (word.toLowerCase().includes(arg[3])) {
                             // console.log(owner + "," + repo + "," + issue.id + "," + issue.url + "," + issue.title + "," + issue.body + "\n");
                             let x = owner as string + "," + repo as string+ "," + issue.id as string+ "," + issue.url as string+ "," + issue.title as string+ "," + issue.body as string+ "\n";
                             console.log(result)
@@ -54,7 +54,7 @@ function option_i() {
                         continue;
                     if (!found) {
                         for (var word of issue.body.split(" ")) {
-                            if (word.toLowerCase().includes("overflow")) {
+                            if (word.toLowerCase().includes(arg[3])) {
                                 // console.log(owner + "," + repo + "," + issue.id + "," + issue.url + "," + issue.title + "," + issue.body + "\n");
                                 let x = owner as string + "," + repo as string+ "," + issue.id as string+ "," + issue.url as string+ "," + issue.title as string+ "," + issue.body as string+ "\n";
                                 fs.writeFile('./result.csv', owner + "," + repo + "," + issue.id + "," + issue.url + ",\"" + issue.title + "\",\"" + issue.body + "\"\n", { flag: 'a+' } ,err => {
@@ -91,7 +91,7 @@ function option_c() {
                     if (commit.commit.message == null)
                         continue;
                     for (var word of commit.commit.message.split(" ")) {
-                        if (word.toLowerCase().includes("overflow")) {
+                        if (word.toLowerCase().includes(arg[3])) {
                             // console.log(owner + "," + repo + "," + commit.sha + "," + commit.commit.url + "," + commit.commit.message + "\n");
                             fs.writeFile('./result.csv', owner + "," + repo + "," + commit.sha + "," + commit.commit.url + ",\"" + commit.commit.message + "\"\n", { flag: 'a+' } ,err => {
                                 if (err) {
